@@ -1,0 +1,81 @@
+﻿@model IEnumerable<StudyWebApi.Models.Pessoa>
+
+@{
+    ViewData["Title"] = "Alunos";
+}
+
+<h3>Cadastro de Alunos</h3>
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close"></button>
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close"></button>
+        @TempData["MensagemErro"]
+    </div>
+}
+
+<p>
+    <a class="btn btn-primary" asp-action="Criar">Cadastrar Aluno</a>
+</p>
+
+
+<table class="table" id="tableAlunos">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusCurso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataIngresso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IDCurso)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.StatusCurso)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.DataIngresso)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Curso.NomeCurso)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Editar" asp-route-id="@item.ID">Editar</a>
+                    <a class="btn btn-secondary" asp-action="Detalhes" asp-route-id="@item.ID">Detalhes</a>
+                    <a class="btn btn-danger" asp-action="Deletar" asp-route-id="@item.ID">Excluir</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

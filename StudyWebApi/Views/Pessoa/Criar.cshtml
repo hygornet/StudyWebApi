@@ -1,0 +1,48 @@
+﻿@using StudyWebApi.Enum
+@model StudyWebApi.Models.Pessoa
+
+@{
+    ViewData["Title"] = "Cadastrar Aluno";
+}
+
+<h1>Cadastrar Aluno</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Criar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nome, "Nome do Aluno", htmlAttributes: new { @class = "control-label" })
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+                @Html.ValidationMessageFor(x=>x.Nome)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StatusCurso, "Status do Curso", htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.StatusCurso, new SelectList(Enum.GetValues(typeof(StatusCurso))), "Selecione o status do curso", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x=>x.StatusCurso)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DataIngresso, "Data de Ingresso", htmlAttributes: new { @class = "control-label" })
+                <input asp-for="DataIngresso" class="form-control" />
+                <span asp-validation-for="DataIngresso" class="text-danger"></span>
+                @Html.ValidationMessageFor(x => x.DataIngresso)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IDCurso, "Curso", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(m => m.IDCurso, new SelectList(ViewBag.NomeCurso2, "Value", "Text"), "Selecione o curso", new { @class = "form-control" })
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Cadastrar Aluno" class="btn btn-primary" />     
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

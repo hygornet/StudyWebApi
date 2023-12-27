@@ -1,0 +1,37 @@
+﻿@model StudyWebApi.Models.Pessoa
+
+@{
+    ViewData["Title"] = "Detalhes do Aluno";
+}
+
+<div>
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </div>
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StatusCurso)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.StatusCurso)
+        </div>
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataIngresso)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.DataIngresso)
+        </div>
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Curso)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Curso.NomeCurso)
+        </div>
+    </div>
+</div>
+<br />
+<a class="btn btn-primary" asp-action="Editar" asp-route-id="@Model.ID">Editar Aluno</a>
+<a class="btn btn-secondary" asp-action="Index">Voltar</a>

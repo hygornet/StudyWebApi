@@ -1,0 +1,42 @@
+﻿@model StudyWebApi.Models.Curso
+
+@{
+    ViewData["Title"] = "Cadastro de Curso";
+}
+
+<h1>Cadastrar novo curso</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Criar">
+            <div class="form-group">
+                <label asp-for="NomeCurso" class="control-label">Nome do Curso</label>
+                <input asp-for="NomeCurso" class="form-control" />
+                @Html.ValidationMessageFor(x=>x.NomeCurso)
+            </div>
+            <BR />
+            <div class="form-group">
+                <label asp-for="Descricao">Descrição do Curso</label>
+                <textarea class="form-control" input asp-for="Descricao" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <BR />
+            <div class="form-group">
+                <label asp-for="Preco" class="control-label"></label>
+                <input asp-for="Preco" class="form-control" />
+                @Html.ValidationMessageFor(x => x.Preco)
+            </div>
+            <BR />
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input type="checkbox" asp-for="Status" class="form-check-input" />
+                <BR />
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Cadastrar" class="btn btn-primary"> <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+

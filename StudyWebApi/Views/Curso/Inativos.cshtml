@@ -1,0 +1,60 @@
+﻿@model IEnumerable<StudyWebApi.Models.Curso>
+
+@{
+    ViewData["Title"] = "Cursos inativos";
+}
+
+<h3>Cursos Inativos</h3>
+
+<p>
+    <a class="btn btn-primary" asp-action="Criar">Cadastrar Curso</a> <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+</p>
+
+<table class="table" id="tableCursosInativos">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeCurso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.NomeCurso)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Preco)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Status)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Editar" asp-route-id="@item.ID">Editar</a>
+                    <a class="btn btn-secondary" asp-action="Detalhes" asp-route-id="@item.ID">Detalhes</a>
+                    <a class="btn btn-danger" asp-action="Deletar" asp-route-id="@item.ID">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
