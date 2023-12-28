@@ -1,0 +1,93 @@
+﻿@model IEnumerable<StudyWebApi.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Listagem de Usuários";
+}
+
+<h3>Usuários do Sistema</h3>
+
+@if(TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if(TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["MensagemErro"]
+    </div>
+}
+
+
+
+<p>
+    <a class="btn btn-primary" asp-action="Criar">Cadastrar usuário</a>
+</p>
+
+
+<table class="table" id="tableUsuario">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Perfil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataCadastro)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Login)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Perfil)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.DataCadastro)
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="Editar" asp-route-id="@item.Id">Editar</a>
+                        <a class="btn btn-secondary" asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a>
+                        <a class="btn btn-danger" asp-action="Deletar" asp-route-id="@item.Id">Excluir</a>
+
+                    </td>
+                </tr>
+            }
+        }
+        
+    </tbody>
+    </table>
+
+

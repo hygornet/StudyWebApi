@@ -9,5 +9,6 @@ namespace StudyWebApi.Context
 
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Pessoa> Pessoa { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
