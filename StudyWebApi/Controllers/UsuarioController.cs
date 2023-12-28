@@ -38,12 +38,15 @@ namespace StudyWebApi.Controllers
                         {
                             return RedirectToAction("Index", "Home");
                         }
-
-                        TempData["MensagemErro"] = $"A senha do usuário é inválida. \nPor favor, tente novamente!";
-
+                        else
+                        {
+                            TempData["MensagemErro"] = $"A senha do usuário é inválida. \nPor favor, tente novamente!";
+                            return RedirectToAction("Login");
+                        }
                     }
 
-                    TempData["MensagemErro"] = $"Usuário e/ou senha inválido(s). \nPor favor, tente novamente!";
+                    TempData["MensagemErro"] = $"Não identificamos este usuário na nossa base. \nPor favor, tente novamente!";
+
                     return RedirectToAction("Login");
 
                 }
