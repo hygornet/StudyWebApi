@@ -17,24 +17,22 @@
                 <input asp-for="Nome" class="form-control" />
                 
             </div>
+            <BR />
             <div class="form-group">
                 @Html.LabelFor(model => model.Login, "Login", htmlAttributes: new { @class = "control-label" })
                 <input asp-for="Login" class="form-control" />
 
             </div>
+            <BR />
             <div class="form-group">
                 @Html.LabelFor(model => model.Email, "Email", htmlAttributes: new { @class = "control-label" })
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+            <BR />
             <div class="form-group">
-                <label asp-for="Perfil" class="control-label"></label>
-                <select asp-for="Perfil" class="form-control">
-                    <option value="0">Selecione</option>
-                    <option value="@PerfilEnum.Admin">Administrador</option>
-                    <option value="@PerfilEnum.Padrao">Padrão</option>
-                </select>
-                @Html.ValidationMessageFor(x => x.Perfil)
+                @Html.LabelFor(model => model.Perfil, "Perfil", htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.Perfil, new SelectList(Enum.GetValues(typeof(PerfilEnum))), "Selecione o status do curso", new { @class = "form-control" })
             </div>
             <br />
             <div class="form-group">

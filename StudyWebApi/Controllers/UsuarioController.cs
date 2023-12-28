@@ -87,9 +87,37 @@ namespace StudyWebApi.Controllers
             
         }
 
-        public IActionResult Editar()
+        public IActionResult Editar(int id)
         {
-            return View();
+            var usuario = _usuarioRepositorio.ListarPorId(id);
+
+            if(usuario == null)
+            {
+                return NoContent();
+            }
+
+            return View(usuario);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(Usuario usuario)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _usuarioRepositorio.Atualizar(usuario);
+                    TempData["MensagemSucesso"] = "Registro editado com sucesso!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Houve alguma falha para cadastrar o curso. \nVeja o erro detalhado: {erro.Message}!";
+                return RedirectToAction("Index");
+            }
+            
+            return RedirectToAction("Editar");
         }
     }
 }

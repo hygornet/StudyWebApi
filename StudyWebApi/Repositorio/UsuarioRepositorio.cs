@@ -23,9 +23,30 @@ namespace StudyWebApi.Repositorio
             return _usuarioContext.Usuarios.ToList();
         }
 
+        public Usuario ListarPorId(int id)
+        {
+            return _usuarioContext.Usuarios.FirstOrDefault(x => x.Id == id);
+        }
+
         public Usuario Atualizar(Usuario usuario)
         {
-            throw new NotImplementedException();
+            var existUsuario = this.ListarPorId(usuario.Id);
+
+            if(existUsuario == null)
+            {
+                throw new Exception("Houve um erro ao buscar este ID no banco de dados!");
+            }
+
+            existUsuario.Nome = usuario.Nome;
+            existUsuario.Login = usuario.Login;
+            existUsuario.Email = usuario.Email;
+            existUsuario.Perfil = usuario.Perfil;
+            existUsuario.Senha = usuario.Senha;
+
+            _usuarioContext.Usuarios.Update(existUsuario);
+            _usuarioContext.SaveChanges();
+
+            return existUsuario;
         }
 
         public Usuario Deletar(Usuario usuario)
