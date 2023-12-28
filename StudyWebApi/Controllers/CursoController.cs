@@ -4,6 +4,7 @@ using StudyWebApi.Context;
 using StudyWebApi.Models;
 using StudyWebApi.Repositorio;
 using System.Web;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StudyWebApi.Controllers
 {
@@ -77,17 +78,27 @@ namespace StudyWebApi.Controllers
         [HttpPost]
         public IActionResult Editar(Curso curso)
         {
+
             Curso c = new Curso();
 
-            c.ID = curso.ID;
-            c.NomeCurso = curso.NomeCurso;
-            c.Descricao = curso.Descricao;
-            c.Preco = curso.Preco;
-            c.Status = curso.Status;
-
-            if(ModelState.IsValid)
+            try
             {
-                _cursoRepositorio.Atualizar(c);
+                c.ID = curso.ID;
+                c.NomeCurso = curso.NomeCurso;
+                c.Descricao = curso.Descricao;
+                c.Preco = curso.Preco;
+                c.Status = curso.Status;
+
+                if (ModelState.IsValid)
+                {
+                    _cursoRepositorio.Atualizar(c);
+                    TempData["MensagemSucesso"] = $"Registro atualizado com sucesso!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Houve alguma falha para cadastrar o curso. \nVeja o erro detalhado: {erro.Message}!";
                 return RedirectToAction("Index");
             }
 
@@ -116,9 +127,18 @@ namespace StudyWebApi.Controllers
         [HttpPost]
         public IActionResult Deletar(Curso curso)
         {
-            _cursoRepositorio.Deletar(curso);
 
-            return RedirectToAction("Index");
+            try
+            {
+                _cursoRepositorio.Deletar(curso);
+                TempData["MensagemSucesso"] = $"Registro deletado com sucesso!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Houve alguma falha para cadastrar o curso. \nVeja o erro detalhado: {erro.Message}!";
+                return RedirectToAction("Index");
+            }
         }
     }
 }

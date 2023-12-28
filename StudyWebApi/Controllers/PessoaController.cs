@@ -69,9 +69,32 @@ namespace StudyWebApi.Controllers
         [HttpPost]
         public IActionResult Editar(Pessoa pessoa)
         {
-            _pessoaRepositorio.Atualizar(pessoa);
 
-            return RedirectToAction("Index");
+            Pessoa aluno = new Pessoa();
+
+            try
+            {
+                aluno.ID = pessoa.ID;
+                aluno.Nome = pessoa.Nome;
+                aluno.StatusCurso = pessoa.StatusCurso;
+                aluno.DataIngresso = pessoa.DataIngresso;
+                aluno.IDCurso = pessoa.IDCurso;
+
+                if (ModelState.IsValid)
+                {
+                    _pessoaRepositorio.Atualizar(pessoa);
+                    TempData["MensagemSucesso"] = "Registro alterado com sucesso!";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Houve alguma falha para cadastrar o curso. \nVeja o erro detalhado: {erro.Message}!";
+                return RedirectToAction("Index");
+            }
+
+            return View(pessoa);
+            
         }
 
         public IActionResult Deletar(int id)
@@ -83,9 +106,19 @@ namespace StudyWebApi.Controllers
         [HttpPost]
         public IActionResult Deletar(Pessoa pessoa)
         {
-            _pessoaRepositorio.Deletar(pessoa);
 
-            return RedirectToAction("Index");
+            try
+            {
+                _pessoaRepositorio.Deletar(pessoa);
+                TempData["MensagemSucesso"] = $"Registro deletado com sucesso!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Houve alguma falha para cadastrar o curso. \nVeja o erro detalhado: {erro.Message}!";
+                return RedirectToAction("Index");
+            }
+
         }
 
         public IActionResult Detalhes(int id)
