@@ -1,0 +1,62 @@
+﻿@using StudyWebApi.Enum
+@model StudyWebApi.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Usuário";
+}
+
+<h1>Editar Usuário</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Editar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nome, "Nome do Usuário", htmlAttributes: new { @class = "control-label" })
+                <input asp-for="Nome" class="form-control" />
+                
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Login, "Login", htmlAttributes: new { @class = "control-label" })
+                <input asp-for="Login" class="form-control" />
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, "Email", htmlAttributes: new { @class = "control-label" })
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Perfil" class="control-label"></label>
+                <select asp-for="Perfil" class="form-control">
+                    <option value="0">Selecione</option>
+                    <option value="@PerfilEnum.Admin">Administrador</option>
+                    <option value="@PerfilEnum.Padrao">Padrão</option>
+                </select>
+                @Html.ValidationMessageFor(x => x.Perfil)
+            </div>
+            <br />
+            <div class="form-group">
+                @Html.LabelFor(model => model.Senha, "Senha", htmlAttributes: new { @class = "control-label" })
+                <input asp-for="Senha" class="form-control" />
+
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Atualizar Usuário" class="btn btn-primary" />
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-action="Index">Voltar</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

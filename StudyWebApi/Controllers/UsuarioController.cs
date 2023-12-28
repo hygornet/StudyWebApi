@@ -70,16 +70,26 @@ namespace StudyWebApi.Controllers
         {
             try
             {
-                _usuarioRepositorio.Adicionar(usuario);
-                TempData["MensagemSucesso"] = "Cadastro realizado com sucesso!";
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _usuarioRepositorio.Adicionar(usuario);
+                    TempData["MensagemSucesso"] = "Cadastro realizado com sucesso!";
+                    return RedirectToAction("Index");
+                }
             }
             catch (Exception erro)
             {
                 TempData["MensagemErro"] =  $"Houve alguma falha para cadastrar o curso. \nVeja o erro detalhado: {erro.Message}!";
                 return RedirectToAction("Index");
             }
+
+            return View(usuario);
             
+        }
+
+        public IActionResult Editar()
+        {
+            return View();
         }
     }
 }
