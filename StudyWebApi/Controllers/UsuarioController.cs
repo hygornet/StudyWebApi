@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudyWebApi.Helper;
 using StudyWebApi.Models;
 using StudyWebApi.Repositorio;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -8,9 +9,11 @@ namespace StudyWebApi.Controllers
     public class UsuarioController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
-        public UsuarioController(IUsuarioRepositorio usuarioRepositorio)
+        private readonly ISessao _sessao;
+        public UsuarioController(IUsuarioRepositorio usuarioRepositorio, ISessao sessao)
         {
             _usuarioRepositorio = usuarioRepositorio;
+            _sessao = sessao;
         }
         public IActionResult Index()
         {
@@ -20,6 +23,7 @@ namespace StudyWebApi.Controllers
 
         public IActionResult Login()
         {
+            if (_sessao.BuscarSessaoUsuario() != null) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -36,6 +40,7 @@ namespace StudyWebApi.Controllers
                     {
                         if (usuario.SenhaValida(loginModel.Senha))
                         {
+                            _sessao.CriarSessaoUsuario(usuario);
                             return RedirectToAction("Index", "Home");
                         }
                         else

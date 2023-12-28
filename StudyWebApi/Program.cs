@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudyWebApi.Context;
+using StudyWebApi.Helper;
 using StudyWebApi.Repositorio;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +12,17 @@ builder.Services.AddDbContext<CursoContext>(options =>
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); 
 });
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 builder.Services.AddScoped<ICursoRepositorio, CursoRepositorio>();
 builder.Services.AddScoped<IPessoaRepositorio, PessoaRepositorio>();
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+builder.Services.AddScoped<ISessao, Sessao>();
+
+builder.Services.AddSession(o => { 
+    o.Cookie.HttpOnly = true;
+    o.Cookie.IsEssential = true;
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -34,6 +43,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
