@@ -1,8 +1,11 @@
-﻿@model StudyWebApi.Models.Pessoa
+﻿@model StudyWebApi.Models.Aluno
 
 @{
-    ViewData["Title"] = "Detalhes do Aluno";
+    ViewData["Title"] = "Excluir Aluno";
 }
+
+<h2>Excluir aluno</h2>
+<p style="color: red">Você realmente deseja excluir o aluno abaixo?</p>
 
 <div>
     <div class="row">
@@ -33,5 +36,9 @@
     </div>
 </div>
 <br />
-<a class="btn btn-primary" asp-action="Editar" asp-route-id="@Model.ID">Editar Aluno</a>
-<a class="btn btn-secondary" asp-action="Index">Voltar</a>
+
+<form asp-action="Deletar">
+    <input type="submit" value="Excluir aluno" class="btn btn-danger" />  <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+</form>
+<br />
+

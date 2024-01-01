@@ -10,7 +10,7 @@ using StudyWebApi.Context;
 
 namespace StudyWebApi.Migrations
 {
-    [DbContext(typeof(CursoContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231218222558_Initial")]
     partial class Initial
     {

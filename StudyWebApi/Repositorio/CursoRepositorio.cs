@@ -8,9 +8,9 @@ namespace StudyWebApi.Repositorio
     public class CursoRepositorio : ICursoRepositorio
     {
 
-        private readonly CursoContext _cursoContext;
+        private readonly ApplicationDbContext _cursoContext;
 
-        public CursoRepositorio(CursoContext cursoContext)
+        public CursoRepositorio(ApplicationDbContext cursoContext)
         {
             _cursoContext = cursoContext;
         }

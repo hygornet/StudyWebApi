@@ -12,8 +12,8 @@ using StudyWebApi.Context;
 namespace StudyWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231227020201_AlterPessoa")]
-    partial class AlterPessoa
+    [Migration("20240101221047_ChangePessoaToAluno")]
+    partial class ChangePessoaToAluno
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,35 @@ namespace StudyWebApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("StudyWebApi.Models.Aluno", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime?>("DataIngresso")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IDCurso")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StatusCurso")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("IDCurso");
+
+                    b.ToTable("Alunos");
+                });
 
             modelBuilder.Entity("StudyWebApi.Models.Curso", b =>
                 {
@@ -52,36 +81,45 @@ namespace StudyWebApi.Migrations
                     b.ToTable("Cursos");
                 });
 
-            modelBuilder.Entity("StudyWebApi.Models.Pessoa", b =>
+            modelBuilder.Entity("StudyWebApi.Models.Usuario", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("DataIngresso")
-                        .IsRequired()
+                    b.Property<DateTime?>("DataAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IDCurso")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StatusCurso")
+                    b.Property<int>("Perfil")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("IDCurso");
+                    b.HasKey("Id");
 
-                    b.ToTable("Pessoa");
+                    b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("StudyWebApi.Models.Pessoa", b =>
+            modelBuilder.Entity("StudyWebApi.Models.Aluno", b =>
                 {
                     b.HasOne("StudyWebApi.Models.Curso", "Curso")
                         .WithMany()

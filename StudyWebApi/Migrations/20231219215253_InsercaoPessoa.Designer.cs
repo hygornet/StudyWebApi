@@ -11,7 +11,7 @@ using StudyWebApi.Context;
 
 namespace StudyWebApi.Migrations
 {
-    [DbContext(typeof(CursoContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231219215253_InsercaoPessoa")]
     partial class InsercaoPessoa
     {

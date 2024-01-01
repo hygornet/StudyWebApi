@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudyWebApi.Models
 {
-    public class Pessoa
+    public class Aluno
     {
 
         public int ID { get; set; }

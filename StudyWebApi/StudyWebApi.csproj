@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Pessoa\Criar22.cshtml" />
+    <Content Remove="Views\Aluno\Criar22.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,8 +5,8 @@ namespace StudyWebApi.Repositorio
 {
     public class UsuarioRepositorio : IUsuarioRepositorio
     {
-        private readonly CursoContext _usuarioContext;
-        public UsuarioRepositorio(CursoContext usuarioRepositorio)
+        private readonly ApplicationDbContext _usuarioContext;
+        public UsuarioRepositorio(ApplicationDbContext usuarioRepositorio)
         {
             _usuarioContext = usuarioRepositorio;
         }

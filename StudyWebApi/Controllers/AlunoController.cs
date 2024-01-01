@@ -6,36 +6,36 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StudyWebApi.Controllers
 {
-    public class PessoaController : Controller
+    public class AlunoController : Controller
     {
-        private readonly IPessoaRepositorio _pessoaRepositorio;
-        public PessoaController(IPessoaRepositorio pessoaRepositorio)
+        private readonly IAlunoRepositorio _alunoRepositorio;
+        public AlunoController(IAlunoRepositorio alunoRepositorio)
         {
-            _pessoaRepositorio = pessoaRepositorio;
+            _alunoRepositorio = alunoRepositorio;
         }
         public IActionResult Index()
         {
-            var pessoas = _pessoaRepositorio.ListarAlunos();
+            var pessoas = _alunoRepositorio.ListarAlunos();
             return View(pessoas);
         }
 
         public IActionResult Criar()
         {
-            ViewBag.NomeCurso2 = _pessoaRepositorio.ListarCursos().ToList();
+            ViewBag.NomeCurso2 = _alunoRepositorio.ListarCursos().ToList();
 
             return View();
         }
 
         [HttpPost]
-        public IActionResult Criar(Pessoa pessoa)
+        public IActionResult Criar(Aluno aluno)
         {
 
             try
             {
-                ViewBag.NomeCurso2 = _pessoaRepositorio.ListarCursos().ToList();
+                ViewBag.NomeCurso2 = _alunoRepositorio.ListarCursos().ToList();
                 if (ModelState.IsValid)
                 {
-                    _pessoaRepositorio.Adicionar(pessoa);
+                    _alunoRepositorio.Adicionar(aluno);
                     TempData["MensagemSucesso"] = "Cadastro realizado com sucesso!";
                     return RedirectToAction("Index");
                 }
@@ -48,15 +48,15 @@ namespace StudyWebApi.Controllers
 
             
 
-            return View(pessoa);
+            return View(aluno);
   
         }
 
         public IActionResult Editar(int id)
         {
 
-            var aluno = _pessoaRepositorio.ListarPorId(id);
-            ViewBag.NomeCurso2 = _pessoaRepositorio.ListarCursos().ToList();
+            var aluno = _alunoRepositorio.ListarPorId(id);
+            ViewBag.NomeCurso2 = _alunoRepositorio.ListarCursos().ToList();
 
             if (aluno == null)
             {
@@ -67,22 +67,22 @@ namespace StudyWebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Editar(Pessoa pessoa)
+        public IActionResult Editar(Aluno aluno)
         {
 
-            Pessoa aluno = new Pessoa();
+            Aluno newAluno = new Aluno();
 
             try
             {
-                aluno.ID = pessoa.ID;
-                aluno.Nome = pessoa.Nome;
-                aluno.StatusCurso = pessoa.StatusCurso;
-                aluno.DataIngresso = pessoa.DataIngresso;
-                aluno.IDCurso = pessoa.IDCurso;
+                newAluno.ID = aluno.ID;
+                newAluno.Nome = aluno.Nome;
+                newAluno.StatusCurso = aluno.StatusCurso;
+                newAluno.DataIngresso = aluno.DataIngresso;
+                newAluno.IDCurso = aluno.IDCurso;
 
                 if (ModelState.IsValid)
                 {
-                    _pessoaRepositorio.Atualizar(pessoa);
+                    _alunoRepositorio.Atualizar(aluno);
                     TempData["MensagemSucesso"] = "Registro alterado com sucesso!";
                     return RedirectToAction("Index");
                 }
@@ -93,23 +93,23 @@ namespace StudyWebApi.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(pessoa);
+            return View(aluno);
             
         }
 
         public IActionResult Deletar(int id)
         {
-            var aluno = _pessoaRepositorio.ListarPorId(id);
+            var aluno = _alunoRepositorio.ListarPorId(id);
             return View(aluno);
         }
 
         [HttpPost]
-        public IActionResult Deletar(Pessoa pessoa)
+        public IActionResult Deletar(Aluno aluno)
         {
 
             try
             {
-                _pessoaRepositorio.Deletar(pessoa);
+                _alunoRepositorio.Deletar(aluno);
                 TempData["MensagemSucesso"] = $"Registro deletado com sucesso!";
                 return RedirectToAction("Index");
             }
@@ -123,7 +123,7 @@ namespace StudyWebApi.Controllers
 
         public IActionResult Detalhes(int id)
         {
-            var aluno = _pessoaRepositorio.ListarPorId(id);
+            var aluno = _alunoRepositorio.ListarPorId(id);
             return View(aluno);
         }
 
