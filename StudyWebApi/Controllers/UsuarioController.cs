@@ -27,6 +27,13 @@ namespace StudyWebApi.Controllers
             return View();
         }
 
+        public IActionResult Sair()
+        {
+            _sessao.RemoverSessaoUsuario();
+
+            return RedirectToAction("Login");
+        }
+
         [HttpPost]
         public IActionResult Login(LoginModel loginModel)
         {
