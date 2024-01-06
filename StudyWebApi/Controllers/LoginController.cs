@@ -20,12 +20,6 @@ namespace StudyWebApi.Controllers
             return View();
         }
 
-        public IActionResult Entrar()
-        {
-            if (_sessao.BuscarSessaoUsuario() != null) return RedirectToAction("Index", "Home");
-            return View();
-        }
-
         [HttpPost]
         public IActionResult Entrar(LoginModel loginModel)
         {
