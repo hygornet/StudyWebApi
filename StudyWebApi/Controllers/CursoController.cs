@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using StudyWebApi.Context;
+using StudyWebApi.Filters;
 using StudyWebApi.Models;
 using StudyWebApi.Repositorio;
 using System.Web;
@@ -8,6 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StudyWebApi.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class CursoController : Controller
     {
 

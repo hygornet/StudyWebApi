@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudyWebApi.Filters;
 using StudyWebApi.Helper;
 using StudyWebApi.Models;
 using StudyWebApi.Repositorio;
@@ -6,6 +7,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StudyWebApi.Controllers
 {
+    [PaginaParaUsuarioLogado]
+    [PaginaRestritaSomenteAdmin]
     public class UsuarioController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;

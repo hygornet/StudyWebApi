@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using StudyWebApi.Filters;
 using StudyWebApi.Models;
 using StudyWebApi.Repositorio;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StudyWebApi.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class AlunoController : Controller
     {
         private readonly IAlunoRepositorio _alunoRepositorio;

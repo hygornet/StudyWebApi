@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using StudyWebApi.Filters;
 using StudyWebApi.Models;
 using System.Diagnostics;
 
 namespace StudyWebApi.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
