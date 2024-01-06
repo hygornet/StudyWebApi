@@ -1,5 +1,8 @@
 ﻿@model StudyWebApi.Models.LoginModel
-
+@{
+    Layout = "_LayoutDeslogado";
+    ViewData["Title"] = "Login";
+}
 
 @if (TempData["MensagemErro"] != null)
 {
@@ -9,15 +12,17 @@
     </div>
 }
 
-<form asp-action="Login">
+<form asp-action="Entrar">
     <div class="form-group">
         <label for="exampleInputEmail1">Login</label>
         <input type="text" asp-for="Login" class="form-control" placeholder="Login de entrada">
+        @Html.ValidationMessageFor(x=>x.Login)
     </div>
     <br />
     <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
         <input type="password" asp-for="Senha" class="form-control" placeholder="Senha de acesso">
+        @Html.ValidationMessageFor(x => x.Senha)
     </div>
     <br />
     <center><button type="submit" class="btn btn-primary">Logar</button></center>

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UploadFiles\**" />
+    <Content Remove="UploadFiles\**" />
+    <EmbeddedResource Remove="UploadFiles\**" />
+    <None Remove="UploadFiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Aluno\Criar22.cshtml" />
   </ItemGroup>
 
@@ -18,10 +25,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UploadFiles\" />
   </ItemGroup>
 
 </Project>
