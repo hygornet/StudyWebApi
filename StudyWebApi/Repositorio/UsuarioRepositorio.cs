@@ -14,6 +14,7 @@ namespace StudyWebApi.Repositorio
         public Usuario Adicionar(Usuario usuario)
         {
             _usuarioContext.Usuarios.Add(usuario);
+            usuario.SetSenhaHash();
             _usuarioContext.SaveChanges();
 
             return usuario;

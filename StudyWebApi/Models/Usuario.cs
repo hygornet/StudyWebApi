@@ -1,4 +1,5 @@
 ﻿using StudyWebApi.Enum;
+using StudyWebApi.Helper;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudyWebApi.Models
@@ -22,7 +23,12 @@ namespace StudyWebApi.Models
         public DateTime? DataAlteracao { get; set; }
         public bool SenhaValida(string senha)
         {
-            return Senha == senha;
+            return Senha == senha.GerarHash();
+        }
+
+        public void SetSenhaHash()
+        {
+            Senha = Senha.GerarHash();
         }
     }
 }
