@@ -78,8 +78,49 @@ namespace StudyWebApi.Controllers
                 TempData["MensagemErro"] = $"Houve alguma falha para cadastrar o curso. \nVeja o erro detalhado: {erro.Message}!";
                 return RedirectToAction("Index");
             }
-            
+
             return RedirectToAction("Editar");
         }
+
+        public IActionResult Deletar(int id)
+        {
+            var usuario = _usuarioRepositorio.ListarPorId(id);
+
+            if (usuario == null)
+            {
+                return NoContent();
+            }
+
+            if (usuario.Login.Equals("admin"))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(usuario);
+        }
+
+        [HttpPost]
+        public IActionResult Deletar(Usuario usuario)
+        {
+            
+            _usuarioRepositorio.Deletar(usuario);
+
+            return View(usuario);
+        }
+
+        public IActionResult Detalhes(int id)
+        {
+            var usuario = _usuarioRepositorio.ListarPorId(id);
+
+            if(usuario == null)
+            {
+                return NoContent();
+            }
+
+            return View(usuario);
+
+        }
+
+        
     }
 }

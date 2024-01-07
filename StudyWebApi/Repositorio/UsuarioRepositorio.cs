@@ -1,4 +1,5 @@
-﻿using StudyWebApi.Context;
+﻿using Microsoft.AspNetCore.Mvc;
+using StudyWebApi.Context;
 using StudyWebApi.Models;
 
 namespace StudyWebApi.Repositorio
@@ -51,7 +52,17 @@ namespace StudyWebApi.Repositorio
 
         public Usuario Deletar(Usuario usuario)
         {
-            throw new NotImplementedException();
+            var user = this.ListarPorId(usuario.Id);
+
+            if(user == null)
+            {
+                throw new Exception("Houve um erro ao buscar este ID no banco de dados!");
+            }
+
+            _usuarioContext.Usuarios.Remove(usuario);
+            _usuarioContext.SaveChanges();
+
+            return usuario;
         }
 
         public Usuario BuscarLogin(string login)

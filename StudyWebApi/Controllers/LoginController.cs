@@ -45,7 +45,7 @@ namespace StudyWebApi.Controllers
 
                     TempData["MensagemErro"] = $"Não identificamos este usuário na nossa base. \nPor favor, tente novamente!";
 
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Index");
 
                 }
 

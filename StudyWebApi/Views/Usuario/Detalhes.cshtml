@@ -1,0 +1,49 @@
+﻿@model StudyWebApi.Models.Usuario
+
+@{
+    ViewData["Title"] = "Detalhes do Usuário";
+}
+
+<div>
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </div>
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Login)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Login)
+        </div>
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </div>
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Perfil)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Perfil)
+        </div>
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataCadastro)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.DataCadastro)
+        </div>
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataAlteracao)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.DataAlteracao)
+        </div>
+    </div>
+</div>
+<br />
+<a class="btn btn-primary" asp-action="Editar" asp-route-id="@Model.Id">Editar Usuário</a> 
+<a class="btn btn-secondary" asp-action="Index">Voltar</a>
