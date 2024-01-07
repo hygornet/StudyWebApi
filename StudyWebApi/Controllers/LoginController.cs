@@ -58,6 +58,43 @@ namespace StudyWebApi.Controllers
             }
         }
 
+        public IActionResult RedefinirSenha()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EnviarLinkParaRedefinirSenha(RedefinirSenhaModel redefinirSenhaModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var usuario = _usuarioRepositorio.BuscarPorLoginEmail(redefinirSenhaModel.Login, redefinirSenhaModel.Email);
+
+                    if (usuario != null)
+                    {
+                        string novaSenha = usuario.GerarNovaSenha();
+                        _usuarioRepositorio.Atualizar(usuario);
+                        TempData["MensagemSucesso"] = $"Enviamos uma nova senha para o seu e-mail cadastrado. Verifique, por favor!";
+                        return RedirectToAction("Index");
+                    }
+
+                    TempData["MensagemErro"] = $"Algum dos dados informados não correspondem com os dados no banco de dados. Por favor, tente novamente!";
+
+                    return RedirectToAction("Index");
+
+                }
+
+                return View("Index");
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops! Não conseguimos redefinir sua senha. \nVeja o erro detalhado: {erro.Message}!";
+                return RedirectToAction("Index");
+            }
+        }
+
         public IActionResult Sair()
         {
             _sessao.RemoverSessaoUsuario();

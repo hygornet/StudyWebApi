@@ -13,6 +13,8 @@ namespace StudyWebApi.Repositorio
 
         public Usuario BuscarLogin(string login);
 
+        public Usuario BuscarPorLoginEmail(string login, string email);
+
         public Usuario Atualizar(Usuario usuario);
 
         public Usuario Deletar(Usuario usuario);

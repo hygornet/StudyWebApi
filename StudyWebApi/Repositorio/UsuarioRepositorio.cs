@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudyWebApi.Context;
+using StudyWebApi.Helper;
 using StudyWebApi.Models;
 
 namespace StudyWebApi.Repositorio
@@ -44,6 +45,7 @@ namespace StudyWebApi.Repositorio
             existUsuario.Email = usuario.Email;
             existUsuario.Perfil = usuario.Perfil;
             existUsuario.Senha = usuario.Senha;
+            existUsuario.DataAlteracao = DateTime.Now;
 
             _usuarioContext.Usuarios.Update(existUsuario);
             _usuarioContext.SaveChanges();
@@ -69,6 +71,11 @@ namespace StudyWebApi.Repositorio
         public Usuario BuscarLogin(string login)
         {
             return _usuarioContext.Usuarios.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());
+        }
+
+        public Usuario BuscarPorLoginEmail(string login, string email)
+        {
+            return _usuarioContext.Usuarios.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper() && x.Email.ToUpper() == email.ToUpper());
         }
     }
 }
