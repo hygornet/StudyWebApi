@@ -9,10 +9,12 @@ namespace StudyWebApi.Controllers
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
         private readonly ISessao _sessao;
-        public LoginController(IUsuarioRepositorio usuarioRepositorio, ISessao sessao)
+        private readonly IEmail _email;
+        public LoginController(IUsuarioRepositorio usuarioRepositorio, ISessao sessao, IEmail email)
         {
             _usuarioRepositorio = usuarioRepositorio;
             _sessao = sessao;
+            _email = email;
         }
         public IActionResult Index()
         {
@@ -75,8 +77,18 @@ namespace StudyWebApi.Controllers
                     if (usuario != null)
                     {
                         string novaSenha = usuario.GerarNovaSenha();
-                        _usuarioRepositorio.Atualizar(usuario);
-                        TempData["MensagemSucesso"] = $"Enviamos uma nova senha para o seu e-mail cadastrado. Verifique, por favor!";
+                        string mensagem = $"Sua nova senha de acesso é: {novaSenha}";
+                        bool emailEnviado = _email.Enviar(usuario.Email, "Curso WEB - Hygor System | Nova senha de acesso", mensagem);
+
+                        if (emailEnviado)
+                        {
+                            _usuarioRepositorio.Atualizar(usuario);
+                            TempData["MensagemSucesso"] = $"Enviamos uma nova senha para o seu e-mail cadastrado. Verifique, por favor!";
+                        }
+                        else
+                        {
+                            TempData["MensagemErro"] = $"Não conseguimos enviar o e-mail. Por favor, tente novamente!";
+                        }
                         return RedirectToAction("Index");
                     }
 

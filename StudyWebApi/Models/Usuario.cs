@@ -36,7 +36,7 @@ namespace StudyWebApi.Models
             string novaSenha = Guid.NewGuid().ToString().Substring(0, 8);
             Senha = novaSenha.GerarHash();
 
-            return this.Senha;
+            return novaSenha;
         }
     }
 }
