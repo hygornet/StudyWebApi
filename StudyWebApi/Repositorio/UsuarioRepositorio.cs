@@ -35,7 +35,7 @@ namespace StudyWebApi.Repositorio
         {
             var existUsuario = this.ListarPorId(usuario.Id);
 
-            if(existUsuario == null)
+            if (existUsuario == null)
             {
                 throw new Exception("Houve um erro ao buscar este ID no banco de dados!");
             }
@@ -53,11 +53,18 @@ namespace StudyWebApi.Repositorio
             return existUsuario;
         }
 
+        public Usuario BuscarPorId(int id)
+        {
+            var usuario = _usuarioContext.Usuarios.FirstOrDefault(x => x.Id == id);
+
+            return usuario;
+        }
+
         public Usuario Deletar(Usuario usuario)
         {
             var user = this.ListarPorId(usuario.Id);
 
-            if(user == null)
+            if (user == null)
             {
                 throw new Exception("Houve um erro ao buscar este ID no banco de dados!");
             }
@@ -77,5 +84,26 @@ namespace StudyWebApi.Repositorio
         {
             return _usuarioContext.Usuarios.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper() && x.Email.ToUpper() == email.ToUpper());
         }
+
+        public Usuario AlterarSenha(AlterarSenhaModel alterarSenhaModel)
+        {
+            Usuario usuario = BuscarPorId(alterarSenhaModel.Id);
+
+            if (usuario == null) { throw new Exception("Houve um erro na atualização do usuário!"); }
+
+            if (!usuario.SenhaValida(alterarSenhaModel.SenhaAtual)) { throw new Exception("Senha atual não confere!"); }
+
+            if (usuario.SenhaValida(alterarSenhaModel.NovaSenha)) { throw new Exception("A nova senha deve ser diferente da senha atual!"); }
+
+            usuario.SetNovaSenha(alterarSenhaModel.NovaSenha);
+            usuario.DataAlteracao = DateTime.Now;
+
+            _usuarioContext.Usuarios.Update(usuario);
+            _usuarioContext.SaveChanges();
+
+            return usuario;
+        }
+
     }
 }
+    

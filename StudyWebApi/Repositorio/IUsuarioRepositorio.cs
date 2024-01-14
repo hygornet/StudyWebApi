@@ -9,6 +9,8 @@ namespace StudyWebApi.Repositorio
 
         public List<Usuario> ListarUsuarios();
 
+        public Usuario BuscarPorId(int id);
+
         public Usuario ListarPorId(int id);
 
         public Usuario BuscarLogin(string login);
@@ -18,5 +20,7 @@ namespace StudyWebApi.Repositorio
         public Usuario Atualizar(Usuario usuario);
 
         public Usuario Deletar(Usuario usuario);
+
+        public Usuario AlterarSenha(AlterarSenhaModel alterarSenhaModel);
     }
 }

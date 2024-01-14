@@ -1,0 +1,54 @@
+﻿@using StudyWebApi.Enum
+@model StudyWebApi.Models.AlterarSenhaModel
+
+@{
+    ViewData["Title"] = "Alterar Senha";
+}
+
+<h1>Alterar Senha de Usuário</h1>
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["MensagemErro"]
+    </div>
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form  asp-controller="AlterarSenha" asp-action="Alterar" method="post">
+            <div class="form-group">
+                <label asp-for="SenhaAtual" class="control-label">Senha Atual</label>
+                <input asp-for="SenhaAtual" class="form-control" />
+                @Html.ValidationMessageFor(x => x.SenhaAtual)
+            </div>
+            <BR />
+            <div class="form-group">
+                <label asp-for="NovaSenha" class="control-label">Nova Senha</label>
+                <input asp-for="NovaSenha" class="form-control" />
+                @Html.ValidationMessageFor(x => x.NovaSenha)
+            </div>
+            <BR />
+            <div class="form-group">
+                <label asp-for="ConfirmarNovaSenha" class="control-label">Confirmar nova senha</label>
+                <input asp-for="ConfirmarNovaSenha" class="form-control" />
+                @Html.ValidationMessageFor(x => x.ConfirmarNovaSenha)
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Alterar senha" class="btn btn-primary"> <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
