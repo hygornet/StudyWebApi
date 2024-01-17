@@ -21,6 +21,8 @@ namespace StudyWebApi.Models
         public string Senha { get; set; }
         public DateTime DataCadastro { get; set; } = DateTime.Now;
         public DateTime? DataAlteracao { get; set; }
+
+        public virtual List<Aluno> Alunos { get; set; }
         public bool SenhaValida(string senha)
         {
             return Senha == senha.GerarHash();

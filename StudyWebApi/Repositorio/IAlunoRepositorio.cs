@@ -6,7 +6,7 @@ namespace StudyWebApi.Repositorio
 {
     public interface IAlunoRepositorio
     {
-        public List<Aluno> ListarAlunos();
+        public List<Aluno> ListarAlunos(int usuarioId);
 
         public List<SelectListItem> ListarCursos();
 

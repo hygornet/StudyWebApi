@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudyWebApi.Filters;
+using StudyWebApi.Helper;
 using StudyWebApi.Models;
 using StudyWebApi.Repositorio;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -11,13 +12,16 @@ namespace StudyWebApi.Controllers
     public class AlunoController : Controller
     {
         private readonly IAlunoRepositorio _alunoRepositorio;
-        public AlunoController(IAlunoRepositorio alunoRepositorio)
+        private readonly ISessao _sessao;
+        public AlunoController(IAlunoRepositorio alunoRepositorio, ISessao sessao)
         {
             _alunoRepositorio = alunoRepositorio;
+            _sessao = sessao;
         }
         public IActionResult Index()
         {
-            var pessoas = _alunoRepositorio.ListarAlunos();
+            var usuario = _sessao.BuscarSessaoUsuario();
+            var pessoas = _alunoRepositorio.ListarAlunos(usuario.Id);
             return View(pessoas);
         }
 
@@ -37,6 +41,8 @@ namespace StudyWebApi.Controllers
                 ViewBag.NomeCurso2 = _alunoRepositorio.ListarCursos().ToList();
                 if (ModelState.IsValid)
                 {
+                    var usuario = _sessao.BuscarSessaoUsuario();
+                    aluno.UsuarioId = usuario.Id;
                     _alunoRepositorio.Adicionar(aluno);
                     TempData["MensagemSucesso"] = "Cadastro realizado com sucesso!";
                     return RedirectToAction("Index");
@@ -84,6 +90,9 @@ namespace StudyWebApi.Controllers
 
                 if (ModelState.IsValid)
                 {
+
+                    var usuario = _sessao.BuscarSessaoUsuario();
+                    aluno.UsuarioId = usuario.Id;
                     _alunoRepositorio.Atualizar(aluno);
                     TempData["MensagemSucesso"] = "Registro alterado com sucesso!";
                     return RedirectToAction("Index");

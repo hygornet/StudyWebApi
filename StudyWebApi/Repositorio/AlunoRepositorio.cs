@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudyWebApi.Context;
+using StudyWebApi.Helper;
 using StudyWebApi.Models;
 
 namespace StudyWebApi.Repositorio
@@ -8,10 +9,12 @@ namespace StudyWebApi.Repositorio
     public class AlunoRepositorio : IAlunoRepositorio
     {
         private readonly ApplicationDbContext _alunoContext;
+        private readonly ISessao _sessao;
 
-        public AlunoRepositorio(ApplicationDbContext alunoContext)
+        public AlunoRepositorio(ApplicationDbContext alunoContext, ISessao sessao)
         {
             _alunoContext = alunoContext;
+            _sessao = sessao;
         }
 
         public Aluno Adicionar(Aluno aluno)
@@ -33,10 +36,9 @@ namespace StudyWebApi.Repositorio
             return curso;
         }
 
-        public List<Aluno> ListarAlunos()
+        public List<Aluno> ListarAlunos(int usuarioId)
         {
-            var alunos = _alunoContext.Alunos.Include("Curso").ToList();
-
+            var alunos = _alunoContext.Alunos.Where(x=>x.UsuarioId == usuarioId).Include("Curso").ToList();
             return alunos;
         }
 
@@ -47,7 +49,6 @@ namespace StudyWebApi.Repositorio
 
         public Aluno Atualizar(Aluno aluno)
         {
-
             var itemAluno = ListarPorId(aluno.ID);
 
             if (aluno == null)

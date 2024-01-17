@@ -32,24 +32,14 @@
 <table class="table" id="tableUsuario">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Login)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Perfil)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataCadastro)
-            </th>
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Login</th>
+            <th scope="col">Email</th>
+            <th scope="col">Perfil</th>
+            <th scope="col">Total de Contatos</th>
+            <th scope="col">Data de Cadastro</th>
+            
             <th></th>
         </tr>
     </thead>
@@ -73,6 +63,13 @@
                     </td>
                     <td>
                         @Html.DisplayFor(model => item.Perfil)
+                    </td>
+                    <td>
+                        <center>
+                        <a href="#" class="btn btn-success btn-sm btn-total-contatos">
+                            @(item.Alunos != null && item.Alunos.Any() ? item.Alunos.Count : 0)
+                        </a>
+                        </center>
                     </td>
                     <td>
                         @Html.DisplayFor(model => item.DataCadastro)

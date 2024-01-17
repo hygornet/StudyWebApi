@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudyWebApi.Context;
 using StudyWebApi.Helper;
 using StudyWebApi.Models;
@@ -23,7 +24,7 @@ namespace StudyWebApi.Repositorio
 
         public List<Usuario> ListarUsuarios()
         {
-            return _usuarioContext.Usuarios.ToList();
+            return _usuarioContext.Usuarios.Include(x=>x.Alunos).ToList();
         }
 
         public Usuario ListarPorId(int id)

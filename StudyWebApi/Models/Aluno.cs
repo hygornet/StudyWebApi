@@ -27,5 +27,9 @@ namespace StudyWebApi.Models
         
         [ForeignKey("IDCurso")]
         public virtual Curso? Curso { get; set; }
+
+        public int? UsuarioId { get; set; }
+
+        public Usuario? Usuario { get; set; }
     }
 }
